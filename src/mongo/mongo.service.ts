@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { FilterQuery } from 'mongoose';
-import { UserIdentityRepository } from './mongo.repository';
+import { MongoRepo } from './mongo.repository';
 import { UserIdentity, UserIdentityDocument } from './mongo.schema';
 
 @Injectable()
 export class MongoService {
-  constructor(private readonly userIdentityRepo: UserIdentityRepository) {}
+  constructor(private readonly userIdentityRepo: MongoRepo) {}
 
   async create(
     userIdentityData: Omit<UserIdentity, 'id'>,

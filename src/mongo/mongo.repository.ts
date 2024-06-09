@@ -4,11 +4,13 @@ import { FilterQuery, Model } from 'mongoose';
 import { UserIdentity, UserIdentityDocument } from './mongo.schema';
 
 @Injectable()
-export class UserIdentityRepository {
+export class MongoRepo {
   constructor(
     @InjectModel(UserIdentity.name)
     private readonly model: Model<UserIdentityDocument>,
-  ) {}
+  ) {
+    console.log('mongo');
+  }
 
   async create(
     userIdentityData: Omit<UserIdentity, 'id' | 'createdAt' | 'updatedAt'>,

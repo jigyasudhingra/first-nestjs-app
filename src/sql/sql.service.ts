@@ -1,10 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersRepo } from './sql.repository';
 import { User } from './sql.entity';
+import { DbService } from 'src/auth/auth.service';
 
 @Injectable()
-export class UsersService {
-  constructor(private readonly userIdentityRepo: UsersRepo) {}
+export class UsersService extends DbService<User> {
+  constructor(private readonly userIdentityRepo: UsersRepo) {
+    super();
+  }
 
   async create(userIdentityData: Omit<User, 'id'>): Promise<User> {
     const userIdentity = await this.userIdentityRepo.create(userIdentityData);
@@ -12,7 +15,7 @@ export class UsersService {
     return userIdentity;
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<User | null> {
     const userIdentity = await this.userIdentityRepo.findOne({ email });
     if (!userIdentity) {
       throw new HttpException(

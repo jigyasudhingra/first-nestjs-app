@@ -4,7 +4,7 @@ import { User } from './sql.entity';
 import { DbService } from 'src/auth/auth.service';
 
 @Injectable()
-export class UsersService extends DbService<User> {
+export class SqlService extends DbService<User> {
   constructor(private readonly userIdentityRepo: UsersRepo) {
     super();
   }

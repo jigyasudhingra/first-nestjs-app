@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './sql.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './sql.entity';
 import { UsersRepo } from './sql.repository';
-import { DatabaseModule } from 'src/database/database.module';
-import { UsersService } from './sql.service';
+import { DatabaseModule } from 'src/sql/database.module';
+import { SqlService } from './sql.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [DatabaseModule.forRoot('mysql'), TypeOrmModule.forFeature([User])],
-  providers: [UsersService, UsersRepo],
-  exports: [UsersService, UsersRepo],
+  imports: [DatabaseModule.forRoot(), TypeOrmModule.forFeature([User])],
+  providers: [SqlService, UsersRepo, ConfigService],
+  exports: [SqlService, UsersRepo],
 })
 export class UsersModule {}

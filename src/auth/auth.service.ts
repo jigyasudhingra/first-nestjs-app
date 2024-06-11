@@ -1,8 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserIdentity } from 'src/mongo/mongo.schema';
-import { MongoService } from 'src/mongo/mongo.service';
 import { User } from 'src/sql/sql.entity';
-import { UsersService } from 'src/sql/sql.service';
 
 export abstract class DbService<T> {
   abstract create(data: Omit<T, 'id'>): Promise<T>;
@@ -13,24 +11,26 @@ export abstract class DbService<T> {
   ): Promise<{ isNew: boolean; data: T }>;
 }
 
+type UserType = User | UserIdentity;
 @Injectable()
 export class AuthService {
   constructor(
     @Inject('DbService')
-    private readonly dbService: DbService<User | UserIdentity>,
+    private readonly dbService: DbService<UserType>,
   ) {}
-  async create(
-    user: Omit<User | UserIdentity, 'id'>,
-  ): Promise<User | UserIdentity> {
+
+  async create(user: Omit<UserType, 'id'>): Promise<UserType> {
     return this.dbService.create(user);
   }
-  async findByEmail(email: string): Promise<User | UserIdentity | null> {
+
+  async findByEmail(email: string): Promise<UserType> {
     return this.dbService.findByEmail(email);
   }
+
   async findOrCreate(
     filter: any,
-    userData: Omit<User | UserIdentity, 'id'>,
-  ): Promise<{ isNew: boolean; data: User | UserIdentity }> {
+    userData: Omit<UserType, 'id'>,
+  ): Promise<{ isNew: boolean; data: UserType }> {
     return this.dbService.findOrCreate(filter, userData);
   }
 }

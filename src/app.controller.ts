@@ -8,7 +8,6 @@ import {
   forwardRef,
 } from '@nestjs/common';
 import { MongoService } from './mongo/mongo.service';
-import { UsersService } from './sql/sql.service';
 import { UserIdentity } from './mongo/mongo.schema';
 import { User } from './sql/sql.entity';
 import { ConfigService } from '@nestjs/config';

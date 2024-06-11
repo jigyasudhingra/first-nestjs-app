@@ -9,7 +9,7 @@ import { DatabaseConfigService } from './database-config.service';
   exports: [DatabaseConfigService],
 })
 export class DatabaseModule {
-  static forRoot(dbType: string): DynamicModule {
+  static forRoot(): DynamicModule {
     return {
       module: DatabaseModule,
       imports: [
@@ -17,7 +17,7 @@ export class DatabaseModule {
           imports: [DatabaseModule],
           inject: [DatabaseConfigService],
           useFactory: (configService: DatabaseConfigService) =>
-            configService.getDatabaseConfig(dbType),
+            configService.getDatabaseConfig(),
         }),
       ],
     };

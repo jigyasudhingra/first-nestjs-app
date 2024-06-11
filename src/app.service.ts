@@ -3,12 +3,12 @@ import { UserIdentity } from './mongo/mongo.schema';
 import { MongoRepo } from './mongo/mongo.repository';
 import { UsersRepo } from './sql/sql.repository';
 import { MongoService } from './mongo/mongo.service';
-import { UsersService } from './sql/sql.service';
 import { ConfigService } from '@nestjs/config';
+import { SqlService } from './sql/sql.service';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly userIdentityRepo: UsersService) {}
+  constructor(private readonly userIdentityRepo: SqlService) {}
 
   // ------ Mongo ------
   //   async create(

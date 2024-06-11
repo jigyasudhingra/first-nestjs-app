@@ -1,9 +1,4 @@
-import { Inject, Injectable, Optional, forwardRef } from '@nestjs/common';
-import { UserIdentity } from './mongo/mongo.schema';
-import { MongoRepo } from './mongo/mongo.repository';
-import { UsersRepo } from './sql/sql.repository';
-import { MongoService } from './mongo/mongo.service';
-import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 import { SqlService } from './sql/sql.service';
 
 @Injectable()

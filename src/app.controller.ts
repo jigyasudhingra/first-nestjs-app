@@ -1,16 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Inject,
-  Optional,
-  Post,
-  forwardRef,
-} from '@nestjs/common';
-import { MongoService } from './mongo/mongo.service';
-import { UserIdentity } from './mongo/mongo.schema';
-import { User } from './sql/sql.entity';
-import { ConfigService } from '@nestjs/config';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 
 @Controller()
@@ -40,5 +28,10 @@ export class AppController {
   @Post()
   async create(@Body() user) {
     return await this.service.create(user);
+  }
+
+  @Get()
+  async find(@Body() user) {
+    return await this.service.findByEmail(user.email);
   }
 }

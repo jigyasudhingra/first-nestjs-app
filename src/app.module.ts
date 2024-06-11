@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { DynamicModuleLoader } from './dynamic-module-loader.module';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 @Module({
